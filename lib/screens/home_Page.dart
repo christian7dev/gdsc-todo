@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gdsctodo/model.dart';
+import 'package:gdsctodo/provider.dart';
 import 'package:gdsctodo/screens/task_creator.dart';
 import 'package:gdsctodo/screens/task_detail.dart';
 import 'package:gdsctodo/widgets/button.dart';
 import 'package:gdsctodo/widgets/cards.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final todoModels = Provider.of<TodoListProvider>(context).todoModels;
     return Scaffold(
       
       //AppBar
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 350,
             child: ListView.builder(
-                itemCount: todos.length,
+                itemCount: todoModels.length,
                 itemBuilder: (context , index){
                   return  InkWell(
                     onTap: (){
@@ -68,9 +70,9 @@ class _HomePageState extends State<HomePage> {
                       //Navigating to another page /screens/task_detail.dart by passing parameters which is required in TaskDetailPage
                       //
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => TaskDetailPage(
-                        title:  todos[index].taskname,
-                        description: todos[index].description,
-                        deadline: todos[index].date,
+                        title:  todoModels[index].taskname,
+                        description: todoModels[index].description,
+                        deadline: todoModels[index].date,
                       )));
                     },
 
@@ -79,9 +81,9 @@ class _HomePageState extends State<HomePage> {
                     //
                     child: TodoCards(
                       index: index,
-                      name: todos[index].taskname,
-                      date: todos[index].date,
-                      logo: todos[index].taskname[0],
+                      name: todoModels[index].taskname,
+                      date: todoModels[index].date,
+                      logo: todoModels[index].taskname[0],
                     ),
                   );
                 }),

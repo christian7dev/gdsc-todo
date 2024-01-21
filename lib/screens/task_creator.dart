@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gdsctodo/model.dart';
+import 'package:gdsctodo/provider.dart';
 import 'package:gdsctodo/widgets/button.dart';
+import 'package:provider/provider.dart';
 
 
 class TaskCreator extends StatefulWidget {
@@ -159,6 +162,11 @@ class _TaskCreatorState extends State<TaskCreator> {
                       btn_name: "ADD Task",
                       onpressed: (){
                         if(_formKey.currentState!.validate()){
+                          Provider.of<TodoListProvider>(context , listen: false)
+                              .addTodoModel(TodoList(
+                              title.text.trim(),
+                              to.toString(),
+                              description.text.trim()));
                           Navigator.of(context).pop();
                         }
                       }

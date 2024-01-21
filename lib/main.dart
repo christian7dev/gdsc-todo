@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gdsctodo/provider.dart';
 import 'package:gdsctodo/screens/landing_Page.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => TodoListProvider(),
+    child: const MyApp(),
+  ));
 }
 
 
